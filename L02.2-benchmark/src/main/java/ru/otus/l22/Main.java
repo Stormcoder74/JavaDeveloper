@@ -20,7 +20,14 @@ public class Main {
         benchmark.measure(String::new, "String with pool");
         benchmark.clean();
 
-        benchmark.measure(() -> new String(new char[0]), "String");
+//        benchmark.measure(() -> new String(new char[0]), "String");
+//        benchmark.clean();
+        benchmark.measure(new Supplier<Object>() {
+            @Override
+            public Object get() {
+                return new String(new char[0]);
+            }
+        }, "String");
         benchmark.clean();
 
         benchmark.measure(() -> new Benchmark(10), "Benchmark(10)");
