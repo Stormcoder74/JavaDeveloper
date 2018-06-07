@@ -13,11 +13,11 @@ public class Main {
     }
 
     private void start() throws NoSuchFieldException, IllegalAccessException {
-        printGenericType();
+//        printGenericType();
 
-        //printGenericIfNull();
+//        printGenericIfNull();
 
-        //System.out.println("Type name:" + getTypeAfterCompilation().getTypeName());
+        System.out.println("Type name:" + getTypeAfterCompilation().getTypeName());
     }
 
     private void printGenericIfNull() throws IllegalAccessException, NoSuchFieldException {
@@ -40,7 +40,7 @@ public class Main {
     }
 
     private Type getTypeAfterCompilation() {
-        ParameterizedType t = (ParameterizedType) NumberClass.class.getGenericSuperclass();
+        ParameterizedType t = (ParameterizedType) StringClass.class.getGenericSuperclass();
         return t.getActualTypeArguments()[0];
     }
 

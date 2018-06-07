@@ -21,12 +21,12 @@ public class PECS {
     //list is a producer of elements
     void produce(List<? extends Number> list) {
         System.out.println(list.get(0));
-        //list.add(1); // error
+//        list.add(1); // error
     }
 
     //list is a consumer of elements
     void consume(List<? super Number> list) {
         list.add(1);
-        //Number n = list.get(1); // error
+//        Number n = list.get(1); // error
     }
 }
