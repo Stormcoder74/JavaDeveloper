@@ -19,23 +19,9 @@ public class MyArrayList<T> implements List<T> {
 
     }
 
-    static <T> void copy(List<? super T> dest, List<? extends T> src) {
-        int srcSize = src.size();
-        int destSize = dest.size();
-        for (int i = 0; i < srcSize && i < destSize; i++)
-            dest.set(i, src.get(i));
-        if(srcSize > destSize)
-            for(int i = destSize; i < srcSize; i++)
-                dest.add(src.get(i));
-    }
-
-    static <T> void sort(List<T> list, Comparator<? super T> c){
-        if(list != null){
-            T[] a = (T[]) list.toArray();
-            Arrays.sort(a, c);
-            list.clear();
-            Collections.addAll(list, a);
-        }
+    @Override
+    public void sort(Comparator<? super T> c) {
+        Arrays.sort(array, 0, size, c);
     }
 
     public int size() {

@@ -36,7 +36,8 @@ public class MyArrayListTest {
         System.out.print(Arrays.toString(stringArrayList.toArray()));
         System.out.println();
 
-        MyArrayList.sort(stringArrayList, new Comparator<String>() {
+
+        Collections.sort(stringArrayList, new Comparator<String>() {
             @Override
             public int compare(String o1, String o2) {
                 int result = o1.compareTo(o2);
@@ -47,7 +48,7 @@ public class MyArrayListTest {
         System.out.print(Arrays.toString(stringArrayList.toArray()));
         System.out.println();
 
-        MyArrayList.copy(stringArrayList, arrayList);
+        Collections.copy(stringArrayList, arrayList);
 
         System.out.print(Arrays.toString(stringArrayList.toArray()));
         System.out.println();
