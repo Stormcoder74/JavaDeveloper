@@ -1,7 +1,10 @@
-import com.stormcoder.nurse.Register;
+package com.stormcoder.nurse;
+
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import static org.junit.Assert.*;
 
 public class RegisterTest {
 
@@ -9,11 +12,13 @@ public class RegisterTest {
 
     @Before
     public void setUp() throws Exception {
+        System.out.println("setUp");
         register = new Register();
     }
 
     @Test
     public void absentObjectReturnsNull(){
+        System.out.println("test1");
         Object something = register.get("absent");
         Assert.assertNull(something);
 
@@ -21,6 +26,7 @@ public class RegisterTest {
 
     @Test
     public void canRegisterSomethingAndReceive(){
+        System.out.println("test2");
         Object one = new Object();
         register.add("one", one);
         Object two = new Object();
@@ -29,7 +35,7 @@ public class RegisterTest {
         Object receivedOne = register.get("one");
         Object receivedTwo = register.get("two");
 
-        Assert.assertNotNull(receivedOne);
+        assertNotNull(receivedOne);
         Assert.assertSame(one, receivedOne);
         Assert.assertSame(two, receivedTwo);
         Assert.assertNotSame(receivedOne, receivedTwo);
@@ -37,6 +43,7 @@ public class RegisterTest {
 
     @Test
     public void canRegisterByTypeAndReceive(){
+        System.out.println("test3");
         Glucose glucose = new Glucose();
         register.add(glucose);
         Water water = new Water();
@@ -45,9 +52,29 @@ public class RegisterTest {
         Glucose receivedGlucose = register.get(Glucose.class);
         Water receivedWater = register.get(Water.class);
 
-        Assert.assertNotNull(receivedGlucose);
+        assertNotNull(receivedGlucose);
         Assert.assertSame(glucose, receivedGlucose);
         Assert.assertSame(water, receivedWater);
         Assert.assertNotSame(receivedGlucose, receivedWater);
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void secondRegisterOfSameNameTrowsException() {
+        System.out.println("test4");
+        register.add("same", new Object());
+        register.add("same", new Object());
+    }
+
+    @Test
+    public void patientShouldBeInjectedByGlucose() {
+        System.out.println("test5");
+        Glucose glucose = new Glucose();
+        register.add(new Patient());
+        register.add(glucose);
+        register.inject();
+        Patient patient = register.get(Patient.class);
+        Glucose injectionGlucose = patient.getGlucose();
+        assertNotNull(injectionGlucose);
+        assertSame(glucose, injectionGlucose);
     }
 }
